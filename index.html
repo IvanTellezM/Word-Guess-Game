@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+	<title>The Psychic Game</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css" >
+	<link type="text/javascript" src="assets/javascript/game.js">
+	
+
+
+
+</head>
+
+
+  	 <div >
+        <h1>The Psychic Game</h1>
+             	 
+    	<h2 class = "wins premade">Wins:</h2>
+    	<h3 id="winCounter" class="scorecolor"></h3>
+    	<h2 class="losses premade">losses:</h2>
+    	<h3 id="loseCounter" class="scorecolor"></h3>
+    	<h2 class= "guesses premade">Guesses left: </h2>
+		<h3 id="numGuess" class="scorecolor"></h3>
+		<h2 class="lettersNow premade">Letters guessed so far:</h2>
+		<h3 id="userGuessed" class="scorecolor"></h3>
+	</div>	
+      
+
+<body> 
+<script > 
+
+var alphabet=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+var numGuess=  9;  //number of guesses
+var userGuessed=[]; //letters user guessed
+var loseCounter=[0]; // var losses=loseCounter;
+var winCounter=[0];  // var wins=winCounter;
+
+var amountOfGuess=numGuess;
+// Randomizer  alphabet 
+function randomizer(alphabet) {
+	return alphabet[Math.floor(Math.random()* alphabet.length)];
+}
+var computerGuess=randomizer(alphabet);
+// console.log(computerGuess); do not use this console.log as it will freeze  next ramdomizer
+
+//function that starts randomizer alphabet and compares to UserGuess
+document.onkeyup = function(event) {
+	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();   /// how can I include upper case?
+	// var computerGuess=randomizer(alphabet);
+		
+	if (userGuess== computerGuess) {
+		console.log("correct", userGuessed);
+		document.getElementById("winCounter").innerHTML= (winCounter.length);
+		userGuessed.push(userGuess);
+		document.getElementById("userGuessed").innerHTML=(userGuessed);
+		(winCounter+=1);
+		// document.getElementById("userGuessed").innerHTML=(userGuessed.length);
+		
+	} else {
+		console.log("no", numGuess, userGuessed);
+		document.getElementById("loseCounter").innerHTML= (loseCounter.length);
+		userGuessed.push(userGuess);
+		document.getElementById("userGuessed").innerHTML=(userGuessed);
+		numGuess--;  // (loseCounter+=1);
+		// (loseCounter+=1);
+		document.getElementById("numGuess").innerHTML=(numGuess);
+		// document.getElementById("userGuessed").innerHTML=(userGuessed.indexOf);
+		
+	}
+	if (numGuess===0 ) {
+		// reset.resetGame()
+		alert("You lose!");
+		reset.resetGame();
+		loseCounter+=1;
+		userGuessed=[];
+	
+	};
+}
+var reset = {
+	resetGame: function() {
+		if(numGuess==0) {
+			document.onekeyup=false;
+			numGuess=5;
+			userGuessed=[];
+		}
+	}
+}
+</script>
+</body>
+</html>
