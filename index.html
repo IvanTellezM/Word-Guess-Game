@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us">
+
 <head>
 
-	<title>The Psychic Game</title>
-	<!-- Required meta tags -->
+    <title>The Psychic Game!</title>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> --> <!--  Not sure if we need reset.css as I am using bootstrap -->
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css" >
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-	<link type="text/javascript" src="assets/javascript/game.js">
-	
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
+    <!--  Not sure if we need reset.css as I am using bootstrap -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link type="text/javascript" src="assets/javascript/game.js">
+
 
 
 
@@ -18,29 +20,28 @@
 
 <!-- Image and text -->
 <nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">
-    <img src="assets/images/ivan1.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-    HW2, Week2
-  </a>
+    <a class="navbar-brand" href="#">
+        <img src="assets/images/ivan1.jpg" width="30" height="30" class="d-inline-block align-top" alt=""> HW2, Week2
+    </a>
 </nav>
 
 <div class="jumbotron jumbotron-fluid">
-     <div class="container">
-        <h1>The Psychic Game</h1> 
-        <hr>         	 
-    	<h2 class = "wins premade">Wins:</h2>
-    	<h3 id="winCounter" class="scorecolor"></h3>
-    	<h2 class="losses premade">losses:</h2>
-    	<h3 id="loseCounter" class="scorecolor"></h3>
-    	<h2 class= "guesses premade">Guesses left: </h2>
-		<h3 id="numGuess" class="scorecolor"></h3>
-		<h2 class="lettersNow premade">Letters guessed so far:</h2>
-		<h3 id="userGuessed" class="scorecolor"></h3>
-	</div>	
+    <div class="container">
+        <h1>The Psychic Game</h1>
+        <hr>
+        <h2 class="wins premade">Wins:</h2>
+        <h3 id="winCounter" class="scorecolor"></h3>
+        <h2 class="losses premade">losses:</h2>
+        <h3 id="loseCounter" class="scorecolor"></h3>
+        <h2 class="guesses premade">Guesses left: </h2>
+        <h3 id="numGuess" class="scorecolor"></h3>
+        <h2 class="lettersNow premade">Letters guessed so far:</h2>
+        <h3 id="userGuessed" class="scorecolor"></h3>
+    </div>
 </div>
 
 
-  	 <!-- <div >
+<!-- <div >
         <h1>The Psychic Game</h1>
              	 
     	<h2 class = "wins premade">Wins:</h2>
@@ -54,70 +55,69 @@
 	</div>	
        -->
 
-<body> 
-<script > 
+<body>
+    <script>
+        var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+        var numGuess = 9; //number of guesses
+        var userGuessed = []; //letters user guessed
+        var loseCounter = [0]; // var losses=loseCounter;
+        var winCounter = [0]; // var wins=winCounter;
 
-var alphabet=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-var numGuess=  9;  //number of guesses
-var userGuessed=[]; //letters user guessed
-var loseCounter=[0]; // var losses=loseCounter;
-var winCounter=[0];  // var wins=winCounter;
+        var amountOfGuess = numGuess;
+        // Randomizer  alphabet 
+        function randomizer(alphabet) {
+            return alphabet[Math.floor(Math.random() * alphabet.length)];
+        }
+        var computerGuess = randomizer(alphabet);
+        // console.log(computerGuess); do not use this console.log as it will freeze  next ramdomizer
 
-var amountOfGuess=numGuess;
-// Randomizer  alphabet 
-function randomizer(alphabet) {
-	return alphabet[Math.floor(Math.random()* alphabet.length)];
-}
-var computerGuess=randomizer(alphabet);
-// console.log(computerGuess); do not use this console.log as it will freeze  next ramdomizer
+        //function that starts randomizer alphabet and compares to UserGuess
+        document.onkeyup = function(event) {
+            var userGuess = String.fromCharCode(event.keyCode).toLowerCase(); /// how can I include upper case?
+            // var computerGuess=randomizer(alphabet);
 
-//function that starts randomizer alphabet and compares to UserGuess
-document.onkeyup = function(event) {
-	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();   /// how can I include upper case?
-	// var computerGuess=randomizer(alphabet);
-		
-	if (userGuess== computerGuess) {
-		console.log("correct", userGuessed);
-		document.getElementById("winCounter").innerHTML= (winCounter.length);
-		userGuessed.push(userGuess);
-		document.getElementById("userGuessed").innerHTML=(userGuessed);
-		(winCounter+=1);
-		// document.getElementById("userGuessed").innerHTML=(userGuessed.length);
-		
-	} else {
-		console.log("no", numGuess, userGuessed);
-		document.getElementById("loseCounter").innerHTML= (loseCounter.length);
-		userGuessed.push(userGuess);
-		document.getElementById("userGuessed").innerHTML=(userGuessed);
-		numGuess--;  // (loseCounter+=1);
-		// (loseCounter+=1);
-		document.getElementById("numGuess").innerHTML=(numGuess);
-		// document.getElementById("userGuessed").innerHTML=(userGuessed.indexOf);
-		
-	}
-	if (numGuess===0 ) {
-		// reset.resetGame()
-		alert("You lose!");
-		reset.resetGame();
-		loseCounter+=1;
-		userGuessed=[];
-	
-	};
-}
-var reset = {
-	resetGame: function() {
-		if(numGuess==0) {
-			document.onekeyup=false;
-			numGuess=5;
-			userGuessed=[];
-		}
-	}
-}
-</script>
-<!-- Optional JavaScript -->
+            if (userGuess == computerGuess) {
+                console.log("correct", userGuessed);
+                document.getElementById("winCounter").innerHTML = (winCounter.length);
+                userGuessed.push(userGuess);
+                document.getElementById("userGuessed").innerHTML = (userGuessed);
+                (winCounter += 1);
+                // document.getElementById("userGuessed").innerHTML=(userGuessed.length);
+
+            } else {
+                console.log("no", numGuess, userGuessed);
+                document.getElementById("loseCounter").innerHTML = (loseCounter.length);
+                userGuessed.push(userGuess);
+                document.getElementById("userGuessed").innerHTML = (userGuessed);
+                numGuess--; // (loseCounter+=1);
+                // (loseCounter+=1);
+                document.getElementById("numGuess").innerHTML = (numGuess);
+                // document.getElementById("userGuessed").innerHTML=(userGuessed.indexOf);
+
+            }
+            if (numGuess === 0) {
+                // reset.resetGame()
+                alert("You lose!");
+                reset.resetGame();
+                loseCounter += 1;
+                userGuessed = [];
+
+            };
+        }
+        var reset = {
+            resetGame: function() {
+                if (numGuess == 0) {
+                    document.onekeyup = false;
+                    numGuess = 5;
+                    userGuessed = [];
+                }
+            }
+        }
+    </script>
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 </body>
+
 </html>
